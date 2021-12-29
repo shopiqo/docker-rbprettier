@@ -5,7 +5,7 @@ on: [push]
 
 env:
     REGISTRY: ghcr.io
-    IMAGE_NAME: rbprettier
+    IMAGE_NAME: efsa-io/rbprettier
 
 jobs:
     test:
