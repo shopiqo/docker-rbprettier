@@ -9,6 +9,7 @@ WORKDIR /app
 RUN \
     set -xe \
     && chmod +x /entrypoint.sh \
+    \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         parallel=20161222-1.1 \

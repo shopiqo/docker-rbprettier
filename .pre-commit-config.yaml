@@ -59,8 +59,6 @@ repos:
       rev: v4.0.1
       hooks:
           - id: trailing-whitespace
-      # exclude_types:
-      #   - "dockerfile"
 
     - repo: local
       hooks:
@@ -105,20 +103,3 @@ repos:
           - id: shellcheck
             args: [--severity=warning]
             types: [shell]
-
-    - repo: local
-      hooks:
-          - id: ruby-lint
-            name: ruby-lint
-            language: docker_image
-            entry: ruby-lint
-            types: [ruby]
-
-    - repo: local
-      hooks:
-          - id: rbprettier
-            name: rbprettier
-            language: docker_image
-            entry: ghcr.io/efsa-io/rbprettier:v1.0.0
-            # types: [ruby]
-            verbose: false
