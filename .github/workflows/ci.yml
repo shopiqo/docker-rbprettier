@@ -86,7 +86,7 @@ jobs:
 
             - name: Comparing results
               run: |
-                  if [ "$(cat tests/actual.rb)" = "$(cat tests/actual.rb)" ]; then
+                  if [ "$(cat actual.rb)" = "$(cat expected.rb)" ]; then
                       exit 0
                   else
                       exit 1
