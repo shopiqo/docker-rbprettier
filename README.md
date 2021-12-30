@@ -5,7 +5,7 @@
 ### Standalone
 
 ```bash
-docker run --rm -v $(pwd):/src ghcr.io/efsa-io/rbprettier:v1.0.0
+docker run --rm -v $(pwd):/src ghcr.io/efsa-io/rbprettier:v1.0.1
 ```
 
 ### pre-commit-config.yaml
@@ -18,7 +18,7 @@ repos:
           - id: rbprettier
             name: rbprettier
             language: docker_image
-            entry: ghcr.io/efsa-io/rbprettier:v1.0.0
+            entry: ghcr.io/efsa-io/rbprettier:v1.0.1
 […]
 ```
 
