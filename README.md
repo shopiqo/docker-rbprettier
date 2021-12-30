@@ -1,4 +1,6 @@
-# Prettier for Ruby inside Docker
+# [Prettier](https://github.com/prettier/plugin-ruby) for Ruby inside Docker
+
+Docker images to auto-format Ruby source code (e.g. `Vagrantfile`). Most available solutions out there aren't able to determine correct programming language unless you are using file extensions like `*.rb`. That's why we are using [Guesslang](https://guesslang.readthedocs.io/en/latest/) to detect Ruby source code with more than 90% accuracy.
 
 ## Quickstart
 
@@ -8,7 +10,9 @@
 docker run --rm -v $(pwd):/src ghcr.io/efsa-io/rbprettier:v1.0.1
 ```
 
-### pre-commit-config.yaml
+### pre-commit (recommended)
+
+Here is an example for your `pre-commit-config.yaml`:
 
 ```yaml
 […]
