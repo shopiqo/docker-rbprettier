@@ -84,5 +84,13 @@ repos:
             name: ruby-lint
             language: docker_image
             entry: ruby-lint
-            types: [file]
-            files: \.rb
+            types: [ruby]
+
+    - repo: local
+      hooks:
+          - id: rbprettier
+            name: rbprettier
+            language: docker_image
+            entry: ghcr.io/efsa-io/rbprettier:v1.0.0
+            # types: [ruby]
+            verbose: false

@@ -1,4 +1,4 @@
-FROM ruby:3.1.0-alpine3.15
+FROM python:3.7-slim-buster
 
 COPY . /
 
@@ -7,15 +7,24 @@ VOLUME ["/app"]
 WORKDIR /app
 
 RUN \
-    set -xe && \
-    apk update --no-cache && \
-    apk add --no-cache \
-      bash=5.1.8-r0 \
-      nodejs=16.13.1-r0 && \
-    gem install prettier:2.0.0
+    set -xe \
+    && chmod +x /entrypoint.sh \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+      nodejs=10.24.0~dfsg-1~deb10u1 \
+      ruby=1:2.5.1 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    \
+    && gem install prettier:2.0.0 \
+    && python3 -m pip install --no-cache-dir --upgrade \
+        pip==21.3.1 \
+    && python3 -m pip install --no-cache-dir \
+        tensorflow==2.5.0 \
+        guesslang==2.2.1
 
 VOLUME ["/src"]
 
 WORKDIR /src
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
