@@ -19,7 +19,6 @@ repos:
             name: rbprettier
             language: docker_image
             entry: ghcr.io/efsa-io/rbprettier:v1.0.0
-            types: [file]
 […]
 ```
 
@@ -35,6 +34,7 @@ pre-commit install
 
 ```bash
 docker build --no-cache -t rbprettier .
-echo "#\!/usr/bin/env ruby\nputs \"Hello world!\"" > hello.rb
+mkdir tests
+echo 'puts "Hello world!"' > tests/hello.rb
 docker run --rm -v $(pwd):/src rbprettier
 ```
