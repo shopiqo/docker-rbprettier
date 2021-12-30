@@ -62,20 +62,19 @@ jobs:
               run: |
                   docker load --input ${{ github.ref_name }}.tar
 
-            - name: hello.rb
+            - name: Test run
               run: |
-                  mkdir tests
-                  echo 'puts "Hello world!"' > tests/hello.rb
-                  docker run --rm -v $(pwd):/src ghcr.io/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
-                  cat tests/hello.rb
+                  docker run --rm \
+                    -v $(pwd)/tests/actual.rb:/src/actual.rb \
+                    ghcr.io/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
 
-            - id: hello
-              run: echo "::set-output name=value::$(cat tests/hello.rb)"
-
-            - uses: nick-invision/assert-action@v1
-              with:
-                  expected: puts 'Hello world!'
-                  actual: ${{ steps.hello.outputs.value }}
+            - id: Comparing results
+              run: |
+                  if [ "$(cat tests/expected.rb)" = "$(rbprettier tests/actual.rb)" ]; then
+                      exit 0
+                  else
+                      exit 1
+                  fi
 
     publish:
         runs-on: ubuntu-20.04
