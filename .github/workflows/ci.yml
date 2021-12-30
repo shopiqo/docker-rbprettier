@@ -62,15 +62,31 @@ jobs:
               run: |
                   docker load --input ${{ github.ref_name }}.tar
 
-            - name: Test run
+            - name: Prepare actual.rb
+              run: |
+                  touch actual.rb
+                  echo '# frozen_string_literal: true' >> actual.rb
+                  echo 'require "pp"' >> actual.rb
+                  echo 'pp "Hello world"' >> actual.rb
+                  cat actual.rb
+
+            - name: Prepare expected.rb
+              run: |
+                  touch expected.rb
+                  echo '# frozen_string_literal: true' >> expected.rb
+                  echo "require 'pp'" >> expected.rb
+                  echo "pp 'Hello world'" >> expected.rb
+                  cat expected.rb
+
+            - name: Run test
               run: |
                   docker run --rm \
-                    -v $(pwd)/tests/actual.rb:/src/actual.rb \
+                    -v $(pwd)/actual.rb:/src/actual.rb \
                     ghcr.io/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
 
-            - id: Comparing results
+            - name: Comparing results
               run: |
-                  if [ "$(cat tests/expected.rb)" = "$(rbprettier tests/actual.rb)" ]; then
+                  if [ "$(cat tests/actual.rb)" = "$(cat tests/actual.rb)" ]; then
                       exit 0
                   else
                       exit 1
