@@ -67,6 +67,7 @@ jobs:
                   mkdir tests
                   echo 'puts "Hello world!"' > tests/hello.rb
                   docker run --rm -v $(pwd):/src ghcr.io/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
+                  cat tests/hello.rb
 
             - id: hello
               run: echo "::set-output name=value::$(cat tests/hello.rb)"
